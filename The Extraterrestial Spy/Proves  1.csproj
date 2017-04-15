@@ -79,18 +79,18 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Guardia Scripts\IAGuardies.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\TriggerEvent.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\Camera2DFollow.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\grapplingHook.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\ropeRatio.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\Pausemenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
