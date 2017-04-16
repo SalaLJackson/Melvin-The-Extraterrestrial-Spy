@@ -30,6 +30,9 @@ public class Player : MonoBehaviour {
     // Variable que determina si el jugador toca una paret.
     bool isWall;
 
+    // Variable que determina si el jugador toca el terra.
+    bool isFloor;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -68,6 +71,7 @@ public class Player : MonoBehaviour {
             isCeiling = false;
             verticalFlip();
         }
+        checkAir();
     }
 
     // Funció que s'encarrega del moviment del nostre jugador.
@@ -110,6 +114,7 @@ public class Player : MonoBehaviour {
         }
         if (coll.gameObject.tag == "Floor")
         {
+            isFloor = true;
             canCrouch = true;
         }
         if (coll.gameObject.tag == "Floor" && GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
@@ -120,6 +125,8 @@ public class Player : MonoBehaviour {
         {
             isWall = true;
         }
+        // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
+        myAnimator.SetBool("isFall", false);
     }
 
     // Funció cridada al sortir-se d'un collider.
@@ -136,13 +143,33 @@ public class Player : MonoBehaviour {
         }
         if (coll.gameObject.tag == "Floor")
         {
+            isFloor = false;
             canCrouch = false;
         }
         if (coll.gameObject.tag == "Wall")
         {
             isWall = false;
         }
-
+        // Si el jugador no toca ni un terrra, ni una paret, ni el sostre, significa que aquest serà a l'aire.
     }
     //DEBUG: Debug.Log("hello world");
+    private void checkAir()
+    {
+        if (!isWall && !isFloor && !isCeiling && !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
+        {
+            myAnimator.SetBool("isFall", true);
+        }
+    }
+
+    private void checkGanxo()
+    {
+        if (GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
+        {
+            myAnimator.SetBool("isGanxo", true);
+        }
+        else
+        {
+            myAnimator.SetBool("isGanxo", false);
+        }
+    }
 }
