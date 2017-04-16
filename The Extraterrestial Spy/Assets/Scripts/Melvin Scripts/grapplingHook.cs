@@ -33,6 +33,9 @@ public class grapplingHook : MonoBehaviour
     // Variable que determina si som al sostre.
     bool isCeiling;
 
+    // Variable que determina si som contra una paret.
+    bool isWall;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -110,7 +113,7 @@ public class grapplingHook : MonoBehaviour
             line.enabled = false;
             isCeiling = false;
         }
-        if (isGrounded && ganxo)
+        if (isGrounded && ganxo && !isWall)
         {
             // Determina el punt de contacte entre la corda i l'objecte.
             hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 100), distance,mask);
@@ -149,6 +152,10 @@ public class grapplingHook : MonoBehaviour
         {
             isCeiling = true;
         }
+        if (coll.gameObject.tag == "Wall")
+        {
+            isWall = true;
+        }
     }
 
     // Funció cridad al sortir d'un collider.
@@ -158,6 +165,10 @@ public class grapplingHook : MonoBehaviour
         if (collision.gameObject.tag == "Ceiling")
         {
             isCeiling = false;
+        }
+        if (collision.gameObject.tag == "Wall")
+        {
+            isWall = false;
         }
     }
 

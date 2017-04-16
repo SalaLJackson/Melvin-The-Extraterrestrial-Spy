@@ -15,6 +15,9 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float speed;
 
+    // Determina si el jugador esta tocant un sostre o terra.
+    private bool canCrouch;
+
     // Determina si el jugador mira cap a la dreta o cap a l'esquerra.
     private bool facingRight;
 
@@ -24,6 +27,9 @@ public class Player : MonoBehaviour {
     // Variable que determina si el jugador està en contacte amb el sostre.
     bool isCeiling;
 
+    // Variable que determina si el jugador toca una paret.
+    bool isWall;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -31,7 +37,7 @@ public class Player : MonoBehaviour {
         myRigidBody = GetComponent<Rigidbody2D>(); // Ara inicialitzem la variable fent que aquesta referencii a un RigidBody, per tant, ja la podem modificar.
         myAnimator = GetComponent < Animator>(); // Inicialitzem la variable per a accedir a l'animator.
         isCeiling = false;
-        Physics2D.gravity *= -1;
+        //Physics2D.gravity *= -1;
     }
 	
 	// Update is called once per frame --> A no ser que canviem Update per FixedUpdate, el qual fixa cada quant es crida a la funció evitant així errors entre diferents PCs.
@@ -100,10 +106,19 @@ public class Player : MonoBehaviour {
             verticalFlip();
             Physics2D.gravity *= -1;
             isCeiling = true;
+            canCrouch = true;
+        }
+        if (coll.gameObject.tag == "Floor")
+        {
+            canCrouch = true;
         }
         if (coll.gameObject.tag == "Floor" && GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
             GameObject.Find("Player").GetComponent<grapplingHook>().ganxo = !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo;
+        }
+        if (coll.gameObject.tag == "Wall")
+        {
+            isWall = true;
         }
     }
 
@@ -113,11 +128,21 @@ public class Player : MonoBehaviour {
         if (isCeiling == true)
         {
             isCeiling = false;
+            canCrouch = false;
             Physics2D.gravity *= -1;
             Vector3 scale = transform.localScale;
             scale.y = Mathf.Abs(scale.y);
             transform.localScale = scale;
         }
+        if (coll.gameObject.tag == "Floor")
+        {
+            canCrouch = false;
+        }
+        if (coll.gameObject.tag == "Wall")
+        {
+            isWall = false;
+        }
+
     }
     //DEBUG: Debug.Log("hello world");
 }
