@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    // Creem la variable que emmagatzemarà el collider 2D.
+    private BoxCollider2D boxCol;
+
     // Creem la variable que emmagatzemarà el RigidBody que utilitzarem en el nostre programa
     // tenint en compte que només hem creat la variable i aquesta encara no referencia a cap objecte.
     private Rigidbody2D myRigidBody;
@@ -33,13 +36,25 @@ public class Player : MonoBehaviour {
     // Variable que determina si el jugador toca el terra.
     bool isFloor;
 
-	// Use this for initialization
-	void Start ()
+    // Variable que guarda les magnituds del collider.
+    float normalSizeX = 0.8991379f;
+    float normalSizeY = 1.15f;
+
+    // Variable que guarda en quan es redueix la hitbox al ajupir-se.
+    float crouchSizeY = 0.5f;
+
+    // Variable que determina si el jugador està ajupit
+    bool isCrouch;
+
+    // Use this for initialization
+    void Start ()
     {
+        boxCol = GetComponent<BoxCollider2D>();
         facingRight = true; // Al iniciar el joc, el jugador sempre mira a la dreta.
         myRigidBody = GetComponent<Rigidbody2D>(); // Ara inicialitzem la variable fent que aquesta referencii a un RigidBody, per tant, ja la podem modificar.
         myAnimator = GetComponent < Animator>(); // Inicialitzem la variable per a accedir a l'animator.
         isCeiling = false;
+        isCrouch = false;
         //Physics2D.gravity *= -1;
     }
 	
@@ -72,6 +87,7 @@ public class Player : MonoBehaviour {
             verticalFlip();
         }
         checkAir();
+        checkCrouch();
     }
 
     // Funció que s'encarrega del moviment del nostre jugador.
@@ -110,7 +126,7 @@ public class Player : MonoBehaviour {
             verticalFlip();
             Physics2D.gravity *= -1;
             isCeiling = true;
-            canCrouch = true;
+            canCrouch = false;
         }
         if (coll.gameObject.tag == "Floor")
         {
@@ -135,7 +151,6 @@ public class Player : MonoBehaviour {
         if (isCeiling == true)
         {
             isCeiling = false;
-            canCrouch = false;
             Physics2D.gravity *= -1;
             Vector3 scale = transform.localScale;
             scale.y = Mathf.Abs(scale.y);
@@ -152,7 +167,8 @@ public class Player : MonoBehaviour {
         }
         // Si el jugador no toca ni un terrra, ni una paret, ni el sostre, significa que aquest serà a l'aire.
     }
-    //DEBUG: Debug.Log("hello world");
+    
+    // Funció que tracta amb l'animador si el personatge cau.
     private void checkAir()
     {
         if (!isWall && !isFloor && !isCeiling && !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
@@ -161,6 +177,7 @@ public class Player : MonoBehaviour {
         }
     }
 
+    // Funció que tracta amb l'animador si el personatge penja del ganxo.
     private void checkGanxo()
     {
         if (GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
@@ -172,4 +189,24 @@ public class Player : MonoBehaviour {
             myAnimator.SetBool("isGanxo", false);
         }
     }
+
+    // Funció que tracta amb l'animador si el personatge esta ajupit.
+    private void checkCrouch()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && canCrouch && !isCrouch)
+        {
+            myAnimator.SetBool("isCrouch", true);
+            boxCol.size = new Vector3(normalSizeX, crouchSizeY, 0);
+            isCrouch = true;
+            boxCol.transform.Translate(new Vector3(0, -(normalSizeY - crouchSizeY), 0));
+        }
+        if (Input.GetKeyUp(KeyCode.C) && isCrouch)
+        {
+            myAnimator.SetBool("isCrouch", false);
+            boxCol.size = new Vector3(normalSizeX, normalSizeY, 0);
+            isCrouch = false;
+            boxCol.transform.Translate(new Vector3(0, normalSizeY - crouchSizeY, 0));
+        }
+    }
+    //DEBUG: Debug.Log("hello world");
 }
