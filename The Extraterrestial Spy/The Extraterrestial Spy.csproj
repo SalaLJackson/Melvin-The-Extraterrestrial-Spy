@@ -79,9 +79,6 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
@@ -93,6 +90,7 @@
     <Compile Include="Assets\Scripts\Melvin Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\grapplingHook.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\ropeRatio.cs" />
+    <Compile Include="Assets\Scripts\New Level Scripts\TriggerNextLevel.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\Pausemenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

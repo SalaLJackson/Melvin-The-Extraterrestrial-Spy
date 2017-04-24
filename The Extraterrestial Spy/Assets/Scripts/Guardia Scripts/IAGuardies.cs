@@ -15,8 +15,8 @@ public class IAGuardies : MonoBehaviour {
     {
 
         StartCoroutine("Patrol");
-        speed = 0.2f;
-        Delay = 2f;
+        speed = 0.1f;
+        Delay = 5f;
         anim = GetComponent<Animator>();
         anim.SetBool("walking", true);
     }

@@ -14,7 +14,7 @@ public class TriggerEvent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log(" EXTRATERRESTIAL DETECTED");
-            SceneManager.LoadScene("1", LoadSceneMode.Additive);
+            SceneManager.LoadScene(0);
             
         }
     }
