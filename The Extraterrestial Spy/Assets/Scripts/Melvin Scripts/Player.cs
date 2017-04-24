@@ -88,6 +88,7 @@ public class Player : MonoBehaviour {
         }
         checkAir();
         checkCrouch();
+
     }
 
     // Funció que s'encarrega del moviment del nostre jugador.
@@ -120,6 +121,13 @@ public class Player : MonoBehaviour {
     // Funció cridada al produir-se una col·lisió.
     void OnCollisionEnter2D(Collision2D coll)
     {
+        //Col·lisio amb les coins
+        if (coll.gameObject.tag == "Coin")
+        {
+            GameManager.Instance.CollectedCoins++;
+            Destroy(coll.gameObject);
+        }
+
         // Al col·lisionar amb el sostre, el nostre personatge es gira.
         if (coll.gameObject.tag== "Ceiling")
         {
@@ -127,22 +135,29 @@ public class Player : MonoBehaviour {
             Physics2D.gravity *= -1;
             isCeiling = true;
             canCrouch = false;
+            // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
+            myAnimator.SetBool("isFall", false);
         }
         if (coll.gameObject.tag == "Floor")
         {
             isFloor = true;
             canCrouch = true;
+            // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
+            myAnimator.SetBool("isFall", false);
         }
         if (coll.gameObject.tag == "Floor" && GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
             GameObject.Find("Player").GetComponent<grapplingHook>().ganxo = !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo;
+            // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
+            myAnimator.SetBool("isFall", false);
         }
         if (coll.gameObject.tag == "Wall")
         {
             isWall = true;
+            // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
+            myAnimator.SetBool("isFall", false);
         }
-        // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
-        myAnimator.SetBool("isFall", false);
+      
     }
 
     // Funció cridada al sortir-se d'un collider.
@@ -208,5 +223,7 @@ public class Player : MonoBehaviour {
             boxCol.transform.Translate(new Vector3(0, normalSizeY - crouchSizeY, 0));
         }
     }
-    //DEBUG: Debug.Log("hello world");
+    
+
+  
 }
