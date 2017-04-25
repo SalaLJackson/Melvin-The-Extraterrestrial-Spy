@@ -46,6 +46,14 @@ public class Player : MonoBehaviour {
     // Variable que determina si el jugador està ajupit
     bool isCrouch;
 
+    // Variable que determina el temps que el jugador es a l'aire
+    float airTime;
+    bool airTrigger;
+    const float fallMinimum=0.5f;
+
+    // Variable que determina l'estat del "crouch"
+    bool crouchState;
+
     // Use this for initialization
     void Start ()
     {
@@ -55,6 +63,8 @@ public class Player : MonoBehaviour {
         myAnimator = GetComponent < Animator>(); // Inicialitzem la variable per a accedir a l'animator.
         isCeiling = false;
         isCrouch = false;
+        crouchState = false;
+        airTrigger = true;
         //Physics2D.gravity *= -1;
     }
 	
@@ -88,7 +98,6 @@ public class Player : MonoBehaviour {
         }
         checkAir();
         checkCrouch();
-
     }
 
     // Funció que s'encarrega del moviment del nostre jugador.
@@ -137,6 +146,7 @@ public class Player : MonoBehaviour {
             canCrouch = false;
             // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
             myAnimator.SetBool("isFall", false);
+            airTrigger = true;
         }
         if (coll.gameObject.tag == "Floor")
         {
@@ -144,18 +154,21 @@ public class Player : MonoBehaviour {
             canCrouch = true;
             // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
             myAnimator.SetBool("isFall", false);
+            airTrigger = true;
         }
         if (coll.gameObject.tag == "Floor" && GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
             GameObject.Find("Player").GetComponent<grapplingHook>().ganxo = !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo;
             // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
             myAnimator.SetBool("isFall", false);
+            airTrigger = true;
         }
         if (coll.gameObject.tag == "Wall")
         {
             isWall = true;
             // Si el jugador toca amb alguna d'aquestes col·lisions, ja no serà a l'aire.
             myAnimator.SetBool("isFall", false);
+            airTrigger = true;
         }
       
     }
@@ -175,6 +188,9 @@ public class Player : MonoBehaviour {
         {
             isFloor = false;
             canCrouch = false;
+            myAnimator.SetBool("isCrouch", false);
+            boxCol.size = new Vector3(normalSizeX, normalSizeY, 0);
+            isCrouch = false;
         }
         if (coll.gameObject.tag == "Wall")
         {
@@ -188,7 +204,20 @@ public class Player : MonoBehaviour {
     {
         if (!isWall && !isFloor && !isCeiling && !GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
-            myAnimator.SetBool("isFall", true);
+            if (airTrigger)
+            {
+                airTime = Time.time;
+                airTrigger = false;
+            }
+            if (Time.time - airTime == fallMinimum)
+            {
+                myAnimator.SetBool("isFall", true);
+            }
+        }
+        else
+        {
+            Debug.Log("AAAA");
+            myAnimator.SetBool("isFall", false);
         }
     }
 
@@ -208,19 +237,23 @@ public class Player : MonoBehaviour {
     // Funció que tracta amb l'animador si el personatge esta ajupit.
     private void checkCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.C) && canCrouch && !isCrouch)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            myAnimator.SetBool("isCrouch", true);
-            boxCol.size = new Vector3(normalSizeX, crouchSizeY, 0);
-            isCrouch = true;
-            boxCol.transform.Translate(new Vector3(0, -(normalSizeY - crouchSizeY), 0));
-        }
-        if (Input.GetKeyUp(KeyCode.C) && isCrouch)
-        {
-            myAnimator.SetBool("isCrouch", false);
-            boxCol.size = new Vector3(normalSizeX, normalSizeY, 0);
-            isCrouch = false;
-            boxCol.transform.Translate(new Vector3(0, normalSizeY - crouchSizeY, 0));
+            if (!crouchState && canCrouch && !isCrouch)
+            {
+                myAnimator.SetBool("isCrouch", true);
+                boxCol.size = new Vector3(normalSizeX, crouchSizeY, 0);
+                isCrouch = true;
+                boxCol.transform.Translate(new Vector3(0, -(normalSizeY - crouchSizeY), 0));
+            }
+            if (isCrouch && crouchState)
+            {
+                myAnimator.SetBool("isCrouch", false);
+                boxCol.size = new Vector3(normalSizeX, normalSizeY, 0);
+                isCrouch = false;
+                boxCol.transform.Translate(new Vector3(0, normalSizeY - crouchSizeY, 0));
+            }
+            crouchState = !crouchState;
         }
     }
     
