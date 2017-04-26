@@ -54,6 +54,9 @@ public class Player : MonoBehaviour {
     // Variable que determina l'estat del "crouch"
     bool crouchState;
 
+    // Variable que determina si el jugador es pot aixecar
+    bool cantGetUp;
+
     // Use this for initialization
     void Start ()
     {
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour {
         isCrouch = false;
         crouchState = false;
         airTrigger = true;
+        cantGetUp = false;
         //Physics2D.gravity *= -1;
     }
 	
@@ -140,6 +144,7 @@ public class Player : MonoBehaviour {
         // Al col·lisionar amb el sostre, el nostre personatge es gira.
         if (coll.gameObject.tag== "Ceiling")
         {
+            Debug.Log("enter ceiling");
             verticalFlip();
             Physics2D.gravity *= -1;
             isCeiling = true;
@@ -170,7 +175,24 @@ public class Player : MonoBehaviour {
             myAnimator.SetBool("isFall", false);
             airTrigger = true;
         }
-      
+    }
+
+    // Funció cridada al entrar en un trigger.
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "crouchZone")
+        {
+            cantGetUp = true;
+        }
+    }
+
+    // Funció cridada al sortir d'un trigger.
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "crouchZone")
+        {
+            cantGetUp = false;
+        }
     }
 
     // Funció cridada al sortir-se d'un collider.
@@ -178,11 +200,14 @@ public class Player : MonoBehaviour {
     {
         if (isCeiling == true)
         {
+            Debug.Log("leave ceiling");
             isCeiling = false;
             Physics2D.gravity *= -1;
             Vector3 scale = transform.localScale;
             scale.y = Mathf.Abs(scale.y);
             transform.localScale = scale;
+            transform.Translate (new Vector2(0, 1)); //NO CANVIAR (Evita bug gravetat)
+
         }
         if (coll.gameObject.tag == "Floor")
         {
@@ -216,7 +241,6 @@ public class Player : MonoBehaviour {
         }
         else
         {
-            Debug.Log("AAAA");
             myAnimator.SetBool("isFall", false);
         }
     }
@@ -237,7 +261,7 @@ public class Player : MonoBehaviour {
     // Funció que tracta amb l'animador si el personatge esta ajupit.
     private void checkCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !cantGetUp)
         {
             if (!crouchState && canCrouch && !isCrouch)
             {
