@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\CollisionEvent.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\IAGuardies.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\TriggerEvent.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\Camera2DFollow.cs" />
