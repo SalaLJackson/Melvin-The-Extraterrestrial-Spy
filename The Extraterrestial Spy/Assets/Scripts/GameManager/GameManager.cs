@@ -65,7 +65,8 @@ public class GameManager : MonoBehaviour {
 
         set
         {
-            collectedCoins = value;
+            coinTxt.text = value.ToString();
+            this.collectedCoins = value;
         }
     }
 
