@@ -105,6 +105,8 @@ public class Player : MonoBehaviour {
     }
 
     // Funció que s'encarrega del moviment del nostre jugador.
+
+    
     private void handleMovement(float horizontal)
     {
         myRigidBody.velocity = new Vector2(horizontal * speed, myRigidBody.velocity.y); // x=InputHoritzontal * speed ,y=0  Ens movem cap a la dreta o esquerra amb la velocitat definida per "speed".
