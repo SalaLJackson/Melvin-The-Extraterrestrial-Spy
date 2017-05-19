@@ -9,16 +9,18 @@ public class AscensorY : MonoBehaviour
     public float directionSpeed = 9.0f;
     float origY;
     public float distance = 5.0f;
+    int delay;
 
 
     void Start()
     {
         origY = transform.position.y; //Posició original
         useSpeed = -directionSpeed;
+        delay = 3;
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (origY - transform.position.y > distance)
         {
@@ -26,6 +28,7 @@ public class AscensorY : MonoBehaviour
         }
         else if (origY - transform.position.y < -distance)
         {
+            //yield return new WaitForSeconds(delay);
             useSpeed = -directionSpeed; //flip 
         }
         transform.Translate(0, useSpeed * Time.deltaTime, 0);

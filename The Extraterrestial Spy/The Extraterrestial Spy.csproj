@@ -85,8 +85,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\AscensorX.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\AscensorY.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\CollisionEvent.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\IAGuardies.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\KillerBlockX.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\KillerBlockY.cs" />
+    <Compile Include="Assets\Scripts\Guardia Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\TriggerEvent.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\Camera2DFollow.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\Player.cs" />
