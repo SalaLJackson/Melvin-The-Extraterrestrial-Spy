@@ -11,16 +11,19 @@ public class KillerBlockY : MonoBehaviour
     public float distance = 5.0f;
 
 
+
     void Start()
     {
+
         origY = transform.position.y;
         useSpeed = -directionSpeed;
+
     }
 
 
     void FixedUpdate()
     {
-        
+
         if (origY - transform.position.y > distance)
         {
             useSpeed = directionSpeed; //flip direction
@@ -31,8 +34,19 @@ public class KillerBlockY : MonoBehaviour
         }
         transform.Translate(0, useSpeed * Time.deltaTime, 0);
 
+    }
 
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Worker"))
+        {
+            Debug.Log(" WORKER KILLED");
+            DestroyObject(other.gameObject);
+
+
+        }
 
 
     }
 }
+
