@@ -84,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Background Scripts\MystMan.cs" />
+    <Compile Include="Assets\Scripts\Background Scripts\TriggerMove.cs" />
+    <Compile Include="Assets\Scripts\Background Scripts\TriggerMoveMultiplier.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\AscensorX.cs" />
     <Compile Include="Assets\Scripts\Guardia Scripts\AscensorY.cs" />

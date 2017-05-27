@@ -10,7 +10,7 @@ public class TriggerNextLevel : MonoBehaviour
     {
         if (other.CompareTag("Player")) //-> que un altre gameobject amb el tag "PLAYER" entri dins el seu trigger,
         {
-            Debug.Log(" Level Completed");
+            
             SceneManager.LoadScene(1);  // Carregarem el seguent nivell enumerat 1 dins l'ordre de build de nivells.
 
         }

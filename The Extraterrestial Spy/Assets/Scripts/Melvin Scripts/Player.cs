@@ -77,7 +77,7 @@ public class Player : MonoBehaviour {
     {
         if (!GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
-            horizontal = Input.GetAxis("Horizontal"); // Edit/ProjectSettings/Input per a accedir al "llistat d'Inputs". Podem utilitzar Debug.Log(horizontal) per a debugar.
+            horizontal = Input.GetAxis("Horizontal"); // Edit/ProjectSettings/Input per a accedir al "llistat d'Inputs". Podem utilitzar (horizontal) per a debugar.
             handleMovement(horizontal);
             horizontalFlip(horizontal);
         }
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour {
         // Al col·lisionar amb el sostre, el nostre personatge es gira.
         if (coll.gameObject.tag== "Ceiling")
         {
-            Debug.Log("enter ceiling");
+           
             verticalFlip();
             Physics2D.gravity *= -1;
             isCeiling = true;
@@ -202,7 +202,7 @@ public class Player : MonoBehaviour {
     {
         if (isCeiling == true)
         {
-            Debug.Log("leave ceiling");
+           
             isCeiling = false;
             Physics2D.gravity *= -1;
             Vector3 scale = transform.localScale;

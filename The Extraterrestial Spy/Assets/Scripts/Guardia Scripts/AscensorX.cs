@@ -37,7 +37,7 @@ public class AscensorX : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D coll) //Adaptar la velocitat (X,Y) en caiguda per evitar efecte de caiguda
     {
-        Debug.Log("Player enters platform");
+
         if (coll.gameObject.tag == "Player")
         {
 
@@ -47,7 +47,7 @@ public class AscensorX : MonoBehaviour
 
     public void OnCollisionStay2D(Collision2D coll) //Adaptar la velocitat (X,Y) en caiguda per evitar efecte de caiguda
     {
-        Debug.Log("Player on platform");
+      
         if (coll.gameObject.tag == "Player")
         {
 
@@ -57,10 +57,11 @@ public class AscensorX : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D coll)
     {
-        Debug.Log("Player exit platform");
 
-        coll.gameObject.transform.Translate(useSpeed * Time.deltaTime,0, 0);
-
+        if (coll.gameObject.tag == "Player")
+        {
+            coll.gameObject.transform.Translate(useSpeed * Time.deltaTime, 0, 0);
+        }
     }
 
 }

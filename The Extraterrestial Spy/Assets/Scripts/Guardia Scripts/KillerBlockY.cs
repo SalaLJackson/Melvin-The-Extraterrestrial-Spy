@@ -36,17 +36,6 @@ public class KillerBlockY : MonoBehaviour
 
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Worker"))
-        {
-            Debug.Log(" WORKER KILLED");
-            DestroyObject(other.gameObject);
-
-
-        }
-
-
-    }
+    
 }
 
