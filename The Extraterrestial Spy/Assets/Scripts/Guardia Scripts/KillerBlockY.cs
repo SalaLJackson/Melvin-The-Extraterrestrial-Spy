@@ -31,6 +31,7 @@ public class KillerBlockY : MonoBehaviour
         else if (origY - transform.position.y < -distance)
         {
             useSpeed = -directionSpeed; //flip direction
+
         }
         transform.Translate(0, useSpeed * Time.deltaTime, 0);
 

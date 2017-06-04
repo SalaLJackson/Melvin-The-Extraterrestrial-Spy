@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+
+
     // Creem la variable que emmagatzemarà el collider 2D.
     private BoxCollider2D boxCol;
 
@@ -96,9 +98,12 @@ public class Player : MonoBehaviour {
         // Si la tecla E es prem i el personatge es al sostre
         if (Input.GetKeyDown(KeyCode.E) && isCeiling==true)
         {
+            
             Physics2D.gravity *= -1;
             isCeiling = false;
             verticalFlip();
+            
+            
         }
         checkAir();
         checkCrouch();
@@ -139,8 +144,12 @@ public class Player : MonoBehaviour {
         //Col·lisio amb les coins
         if (coll.gameObject.tag == "Coin")
         {
+            AudioSource Coin = GetComponent<AudioSource>();
+            Coin.Play();
+
             GameManager.Instance.CollectedCoins++;
             Destroy(coll.gameObject);
+
         }
 
         // Al col·lisionar amb el sostre, el nostre personatge es gira.

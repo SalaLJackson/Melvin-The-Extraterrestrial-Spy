@@ -11,6 +11,9 @@ public class TriggerMove : MonoBehaviour {
         if (other.CompareTag("Player")) //-> que un altre gameobject amb el tag "PLAYER" entri dins el seu trigger,
         {
             Debug.Log("TRIGGERED");
+            AudioSource Breaking = GetComponent<AudioSource>();
+            Breaking.Play();
+
             transform.Translate(0, fallDistance, 0);
 
         }

@@ -20,6 +20,9 @@ public class MystMan : MonoBehaviour {
                 Destroy(this);
             }
 
+            AudioSource Scream = GetComponent<AudioSource>();
+            Scream.Play();
+
 
         }
     }

@@ -10,7 +10,10 @@ public class TriggerMoveMultiplier : MonoBehaviour {
     {
         if (other.gameObject.tag ==("Player")) //-> que un altre gameobject amb el tag "PLAYER" entri dins el seu trigger,
         {
-            Debug.Log("TRIGGERED");
+            
+            AudioSource MoveCrunch = GetComponent<AudioSource>();
+            MoveCrunch.Play();
+
             transform.Translate(speedfall, 0, 0);
 
         }

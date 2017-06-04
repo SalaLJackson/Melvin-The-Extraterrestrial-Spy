@@ -14,7 +14,7 @@ public class Pausemenu : MonoBehaviour
 
     private int actualScene;
 
-   private bool ceilingravity;
+   
 
     
 
@@ -22,7 +22,7 @@ public class Pausemenu : MonoBehaviour
     {
         PauseUI.SetActive(false); //Quan s'inicia l'aplicació el menu esta en modo false per tant no apareix.
         actualScene = 0;
-        ceilingravity = false;
+        
         
     }
 
@@ -57,25 +57,17 @@ public class Pausemenu : MonoBehaviour
 
 
     }
-    public void OnColliderStay2D(Collider2D other) //Adaptar la velocitat (X,Y) en caiguda per evitar efecte de caiguda
-    {
-
-        if (other.gameObject.tag == ("Ceiling"))
-        {
-            ceilingravity = true;
-        }
-    }
+  
 
     public void Resume()
     {
-        PauseUI.SetActive(false);
+        paused = false;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(actualScene);
-
-        Physics2D.gravity *= Mathf.Abs(Physics2D.gravity.y);
+        paused = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()

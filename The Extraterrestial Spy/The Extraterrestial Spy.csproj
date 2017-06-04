@@ -101,6 +101,11 @@
     <Compile Include="Assets\Scripts\Melvin Scripts\grapplingHook.cs" />
     <Compile Include="Assets\Scripts\Melvin Scripts\ropeRatio.cs" />
     <Compile Include="Assets\Scripts\New Level Scripts\TriggerNextLevel.cs" />
+    <Compile Include="Assets\Scripts\Sound Scripts\BoxSound.cs" />
+    <Compile Include="Assets\Scripts\Sound Scripts\GroundSound.cs" />
+    <Compile Include="Assets\Scripts\Sound Scripts\MetalZone.cs" />
+    <Compile Include="Assets\Scripts\Sound Scripts\TensioZone.cs" />
+    <Compile Include="Assets\Scripts\Sound Scripts\ToiletSound.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\Pausemenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
