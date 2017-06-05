@@ -66,8 +66,10 @@ public class Pausemenu : MonoBehaviour
 
     public void Restart()
     {
-        paused = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
+            paused = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     public void MainMenu()
@@ -78,6 +80,21 @@ public class Pausemenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadLeve3()
+    {
+        SceneManager.LoadScene(2);
     }
 }
 
