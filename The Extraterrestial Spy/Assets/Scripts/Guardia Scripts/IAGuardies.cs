@@ -22,7 +22,7 @@ public class IAGuardies : MonoBehaviour {
     }
 	
 	
-	void FixedUpdate ()
+	void Update ()
     {
 
     }

@@ -18,7 +18,7 @@ public class AscensorX : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (origX - transform.position.x > distance)
         {

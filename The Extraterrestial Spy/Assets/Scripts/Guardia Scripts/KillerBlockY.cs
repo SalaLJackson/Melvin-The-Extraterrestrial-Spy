@@ -21,7 +21,7 @@ public class KillerBlockY : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
 
         if (origY - transform.position.y > distance)

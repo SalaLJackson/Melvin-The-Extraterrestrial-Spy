@@ -15,7 +15,7 @@ public class ropeRatio : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         float scaleX=Vector3.Distance(player.transform.position,grabPosition)/ratio;
         GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(scaleX, 1f);

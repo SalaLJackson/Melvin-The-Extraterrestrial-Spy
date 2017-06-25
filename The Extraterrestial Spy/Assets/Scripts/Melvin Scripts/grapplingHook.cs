@@ -47,7 +47,7 @@ public class grapplingHook : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {/*
         // Aquest codi fara que el jugador sigui atret cap a l'objecte automàticament.
         if (joint.distance > 1f)
