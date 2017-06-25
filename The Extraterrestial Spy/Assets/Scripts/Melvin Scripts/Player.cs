@@ -75,7 +75,7 @@ public class Player : MonoBehaviour {
     }
 	
 	// Update is called once per frame --> A no ser que canviem Update per FixedUpdate, el qual fixa cada quant es crida a la funció evitant així errors entre diferents PCs.
-	void FixedUpdate ()
+	void Update ()
     {
         if (!GameObject.Find("Player").GetComponent<grapplingHook>().ganxo)
         {
