@@ -16,8 +16,6 @@ public class BoxSound : MonoBehaviour
             GameManager.Instance.CollectedCoins++;
 
             Destroy(gameObject);
-           
-
         }
     }
 }
